@@ -1,34 +1,42 @@
 package co.incubyte.word;
 
-import static io.micronaut.http.HttpRequest.GET;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import io.micronaut.core.type.Argument;
-import io.micronaut.http.HttpResponse;
-import io.micronaut.http.client.HttpClient;
-import io.micronaut.http.client.annotation.Client;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import java.util.List;
 import javax.inject.Inject;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MicronautTest
 class WordControllerTest {
 
   @Inject
-  @Client("/")
-  private HttpClient httpClient;
+  WordClient wordClient;
+
+  @BeforeEach
+  void setUp() {
+    WordLoggerMockServer.startWithoutStubs();
+  }
+
+  @AfterEach
+  void tearDown() {
+    WordLoggerMockServer.stop();
+  }
 
   @Test
   void should_return_all_words() {
-    HttpResponse<List<Word>> wordResponse = httpClient.toBlocking()
-        .exchange(GET("/words"), Argument.listOf(Word.class));
+    WordLoggerMockServer.addGetWordsEndpoint();
 
-    assertThat(wordResponse.code()).isEqualTo(200);
-    assertThat(wordResponse.body()).isNotNull();
+    Response<List<Word>> wordResponse = wordClient.getAllWords();
 
-    List<Word> body = wordResponse.body();
+    assertThat(wordResponse.getStatus()).isEqualTo(Status.SUCCESS);
+    assertThat(wordResponse.getData()).isNotNull();
+
+    List<Word> body = wordResponse.getData();
     if (body != null) {
+      assertThat(body).hasSize(2);
       assertThat(body.get(0).getValue()).isEqualTo("Hello");
       assertThat(body.get(1).getValue()).isEqualTo("World");
     }
