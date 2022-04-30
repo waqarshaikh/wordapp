@@ -1,7 +1,36 @@
 micronaut:
   application:
     name: wordapp
+  server:
+    port: 8080
+    cors:
+      enabled: true
+      configurations:
+        all:
+          allowedOrigins:
+            - '${WEB_HOST:`http://localhost:4200`}'
+          allowedMethods:
+            - 'GET'
+            - 'POST'
+            - 'PUT'
+            - 'PATCH'
+            - 'DELETE'
+            - 'OPTIONS'
+          allowedHeaders:
+            - 'Authorization'
+            - 'connection'
+            - 'content-type'
+            - 'content-length'
+            - 'date'
+            - 'keep-alive'
+            - 'UserId'
+            - 'x-cats-request-checksum'
+            - 'x-local-cache'
+      single-header: true
 netty:
   default:
     allocator:
       max-order: 3
+client:
+  logger:
+    url: '${LOGGER_BASE:`http://localhost:8000`}'
