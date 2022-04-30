@@ -7,12 +7,17 @@ import javax.inject.Singleton;
 public class WordService {
 
   private final WordRepository wordRepository;
+  private final WordLoggerClient wordLoggerClient;
 
-  public WordService(WordRepository wordRepository) {
+  public WordService(WordRepository wordRepository,
+      WordLoggerClient wordLoggerClient) {
     this.wordRepository = wordRepository;
+    this.wordLoggerClient = wordLoggerClient;
   }
 
   public List<Word> getAllWords() {
-    return wordRepository.findAll();
+    List<Word> words = wordRepository.findAll();
+    wordLoggerClient.logRetrieval(words);
+    return words;
   }
 }
