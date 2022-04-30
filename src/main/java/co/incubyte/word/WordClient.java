@@ -1,13 +1,12 @@
 package co.incubyte.word;
 
-import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.client.annotation.Client;
 import java.util.List;
 
-@Client()
+@Client("/words")
 public interface WordClient {
 
-  @Get("/users")
-  HttpResponse<List<Word>> getAllWords();
+  @Get
+  Response<List<Word>> getAllWords();
 }

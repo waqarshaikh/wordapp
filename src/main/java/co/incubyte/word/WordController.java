@@ -4,7 +4,7 @@ import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import java.util.List;
 
-@Controller()
+@Controller("/words")
 public class WordController {
 
   private final WordService wordService;
@@ -13,9 +13,9 @@ public class WordController {
     this.wordService = wordService;
   }
 
-  @Get("/words")
-  public List<Word> getAllWords() {
-    return wordService.getAllWords();
+  @Get
+  public Response<List<Word>> getAllWords() {
+    return Response.success(wordService.getAllWords());
   }
 
 }
