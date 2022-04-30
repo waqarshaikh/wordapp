@@ -1,5 +1,8 @@
 package co.incubyte.word;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -17,7 +20,8 @@ class WordControllerShould {
 
   @Test
   void call_service_to_get_all_words() {
-    wordController.getAllWords();
+    Response<List<Word>> response = wordController.getAllWords();
+    assertEquals(Status.SUCCESS, response.status);
     Mockito.verify(wordService).getAllWords();
   }
 }
