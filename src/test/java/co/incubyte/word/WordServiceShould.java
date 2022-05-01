@@ -1,10 +1,13 @@
 package co.incubyte.word;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
 class WordServiceShould {
@@ -22,8 +25,17 @@ class WordServiceShould {
 
   @Test
   void should_get_all_words() {
-    List<Word> words = wordService.getAllWords();
-    Mockito.verify(wordRepository).findAll();
-    Mockito.verify(wordLoggerClient).logRetrieval(words);
+    when(wordRepository.getAllWords()).thenReturn(List.of(new Word("Word1"), new Word("Word2")));
+
+    wordService.getAllWords();
+
+    ArgumentCaptor<List<WordDto>> wordArgumentCaptor = ArgumentCaptor.forClass(List.class);
+
+    Mockito.verify(wordRepository).getAllWords();
+    Mockito.verify(wordLoggerClient).logRetrieval(wordArgumentCaptor.capture());
+
+    List<WordDto> words = wordArgumentCaptor.getValue();
+    assertThat(words.get(0).getValue()).isEqualTo("Word1");
+    assertThat(words.get(1).getValue()).isEqualTo("Word2");
   }
 }

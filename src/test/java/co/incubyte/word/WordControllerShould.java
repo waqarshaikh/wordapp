@@ -20,7 +20,7 @@ class WordControllerShould {
 
   @Test
   void call_service_to_get_all_words() {
-    Response<List<Word>> response = wordController.getAllWords();
+    Response<List<WordDto>> response = wordController.getAllWords();
     assertEquals(Status.SUCCESS, response.status);
     Mockito.verify(wordService).getAllWords();
   }

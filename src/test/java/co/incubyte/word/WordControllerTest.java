@@ -29,12 +29,12 @@ class WordControllerTest {
   void should_return_all_words() {
     WordLoggerMockServer.addGetWordsEndpoint();
 
-    Response<List<Word>> wordResponse = wordClient.getAllWords();
+    Response<List<WordDto>> wordResponse = wordClient.getAllWords();
 
     assertThat(wordResponse.getStatus()).isEqualTo(Status.SUCCESS);
     assertThat(wordResponse.getData()).isNotNull();
 
-    List<Word> body = wordResponse.getData();
+    List<WordDto> body = wordResponse.getData();
     if (body != null) {
       assertThat(body).hasSize(2);
       assertThat(body.get(0).getValue()).isEqualTo("Hello");

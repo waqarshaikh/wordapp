@@ -1,6 +1,7 @@
 package co.incubyte.word;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.inject.Singleton;
 
 @Singleton
@@ -15,9 +16,14 @@ public class WordService {
     this.wordLoggerClient = wordLoggerClient;
   }
 
-  public List<Word> getAllWords() {
-    List<Word> words = wordRepository.findAll();
-    wordLoggerClient.logRetrieval(words);
-    return words;
+  public List<WordDto> getAllWords() {
+    List<Word> words = wordRepository.getAllWords();
+
+    List<WordDto> wordDtos = words.stream()
+        .map(word -> new WordDto(word.getValue()))
+        .collect(Collectors.toList());
+
+    wordLoggerClient.logRetrieval(wordDtos);
+    return wordDtos;
   }
 }

@@ -10,8 +10,8 @@ import java.util.List;
 public interface WordClient {
 
   @Get
-  Response<List<Word>> getAllWords();
+  Response<List<WordDto>> getAllWords();
 
   @Post
-  void saveWord(@Body Word word);
+  void saveWord(@Body WordDto wordDto);
 }

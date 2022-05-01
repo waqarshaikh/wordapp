@@ -14,7 +14,7 @@ public class WordController {
   }
 
   @Get
-  public Response<List<Word>> getAllWords() {
+  public Response<List<WordDto>> getAllWords() {
     return Response.success(wordService.getAllWords());
   }
 
