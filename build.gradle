@@ -44,8 +44,8 @@ dependencies {
     testImplementation("org.assertj:assertj-core")
     testImplementation 'io.rest-assured:rest-assured:4.4.0'
     testImplementation "com.github.tomakehurst:wiremock-jre8:$wireMockVersion"
-    testRuntimeOnly("com.h2database:h2")
-
+    testRuntimeOnly("io.micronaut.sql:micronaut-jdbc-hikari")
+    testRuntimeOnly("mysql:mysql-connector-java")
 
 }
 
