@@ -1,6 +1,7 @@
 package co.incubyte.word;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.inject.Singleton;
 
@@ -19,7 +20,7 @@ public class WordService {
   public List<WordDto> getAllWords() {
     List<Word> words = wordRepository.getAllWords();
 
-    List<WordDto> wordDtos = words.stream()
+    List<WordDto> wordDtos = Objects.requireNonNull(words).stream()
         .map(word -> new WordDto(word.getValue()))
         .collect(Collectors.toList());
 
