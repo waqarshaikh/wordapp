@@ -9,5 +9,8 @@ import java.util.List;
 public interface WordLoggerClient {
 
   @Post("/retrieve")
-  void logRetrieval(@Body Object wordDtos);
+  void logRetrieval(@Body List<WordDto> wordDtos);
+
+  @Post("/create")
+  void logCreation(@Body WordDto wordDto);
 }

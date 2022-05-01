@@ -15,6 +15,9 @@ class WordControllerTest {
   @Inject
   WordClient wordClient;
 
+  @Inject
+  WordRepository wordRepository;
+
   @BeforeEach
   void setUp() {
     WordLoggerMockServer.startWithoutStubs();
@@ -23,6 +26,7 @@ class WordControllerTest {
   @AfterEach
   void tearDown() {
     WordLoggerMockServer.stop();
+    wordRepository.deleteAll();
   }
 
   @Test
@@ -40,5 +44,19 @@ class WordControllerTest {
       assertThat(body.get(0).getValue()).isEqualTo("Hello");
       assertThat(body.get(1).getValue()).isEqualTo("World");
     }
+  }
+
+  @Test
+  void should_save_word() {
+    WordLoggerMockServer.addSaveWordEndpoint();
+
+    wordClient.saveWord(new WordDto("Hello, World!"));
+
+    List<Word> words = wordRepository.getAllWords();
+
+    assertThat(words).isNotNull();
+
+    assertThat(words.get(0).getValue()).isEqualTo("Hello, World!");
+
   }
 }

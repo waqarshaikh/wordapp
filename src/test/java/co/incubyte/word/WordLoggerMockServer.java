@@ -29,6 +29,18 @@ public class WordLoggerMockServer {
         + "}";
   }
 
+  public static void addSaveWordEndpoint() {
+    wireMockServer.stubFor(
+        WireMock.post(WireMock.urlMatching("/create"))
+            .willReturn(WireMock.okJson(saveWordLoggedData())));
+  }
+
+  private static String saveWordLoggedData() {
+    return "{\n"
+        + "    \"message\":  \"Logged Word Creation successfully\"\n"
+        + "}";
+  }
+
   public static void startWithoutStubs() {
     wireMockServer = new WireMockServer(
         options().port(8000).notifier(new ConsoleNotifier(true))

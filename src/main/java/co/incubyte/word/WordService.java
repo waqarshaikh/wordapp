@@ -26,4 +26,10 @@ public class WordService {
     wordLoggerClient.logRetrieval(wordDtos);
     return wordDtos;
   }
+
+  public void save(WordDto wordDto) {
+    Word word = new Word(wordDto.getValue());
+    wordRepository.save(word);
+    wordLoggerClient.logCreation(wordDto);
+  }
 }
