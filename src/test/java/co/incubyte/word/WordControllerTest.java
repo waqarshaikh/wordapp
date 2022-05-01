@@ -21,18 +21,19 @@ class WordControllerTest {
   @BeforeEach
   void setUp() {
     WordLoggerMockServer.startWithoutStubs();
+    wordRepository.deleteAll();
   }
 
   @AfterEach
   void tearDown() {
     WordLoggerMockServer.stop();
-    wordRepository.deleteAll();
   }
 
   @Test
   void should_return_all_words() {
-    WordLoggerMockServer.addGetWordsEndpoint();
+    wordClient.saveWord(new WordDto("Word1"));
 
+    WordLoggerMockServer.addGetWordsEndpoint();
     Response<List<WordDto>> wordResponse = wordClient.getAllWords();
 
     assertThat(wordResponse.getStatus()).isEqualTo(Status.SUCCESS);
@@ -40,9 +41,8 @@ class WordControllerTest {
 
     List<WordDto> body = wordResponse.getData();
     if (body != null) {
-      assertThat(body).hasSize(2);
-      assertThat(body.get(0).getValue()).isEqualTo("Hello");
-      assertThat(body.get(1).getValue()).isEqualTo("World");
+      assertThat(body).hasSize(1);
+      assertThat(body.get(0).getValue()).isEqualTo("Word1");
     }
   }
 
