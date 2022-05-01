@@ -21,7 +21,7 @@ public class WordService {
     List<Word> words = wordRepository.getAllWords();
 
     List<WordDto> wordDtos = Objects.requireNonNull(words).stream()
-        .map(word -> new WordDto(word.getValue()))
+        .map(word -> new WordDto(word.getId(), word.getValue()))
         .collect(Collectors.toList());
 
     wordLoggerClient.logRetrieval(wordDtos);

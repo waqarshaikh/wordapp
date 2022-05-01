@@ -28,7 +28,7 @@ class WordControllerShould {
 
   @Test
   void call_service_to_save_word() {
-    wordController.save(new WordDto("Word1"));
+    wordController.save(new WordDto(1L, "Word1"));
 
     ArgumentCaptor<WordDto> wordArgumentCaptor = ArgumentCaptor.forClass(WordDto.class);
     Mockito.verify(wordService).save(wordArgumentCaptor.capture());

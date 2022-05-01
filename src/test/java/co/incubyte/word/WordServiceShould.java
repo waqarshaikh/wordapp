@@ -45,7 +45,7 @@ class WordServiceShould {
     Word word = new Word("Word1");
     when(wordRepository.save(any(Word.class))).thenReturn(word);
 
-    wordService.save(new WordDto("Word1"));
+    wordService.save(new WordDto(1L, "Word1"));
 
     ArgumentCaptor<Word> wordArgumentCaptor = ArgumentCaptor.forClass(Word.class);
     Mockito.verify(wordRepository).save(wordArgumentCaptor.capture());

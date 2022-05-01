@@ -35,7 +35,8 @@ public class WordLoggerMockServer {
   }
 
   private static String getWordRequsetBody(WordDto wordDto) {
-    return "[{" + "\"value\":\"" + wordDto.getValue() + "\"}]";
+    return "[{ " + " \"id\":" + wordDto.getId() + "," + "\"value\":\"" + wordDto.getValue() + "\" "
+        + "}]";
   }
 
   public static void addSaveWordEndpoint() {
@@ -53,7 +54,7 @@ public class WordLoggerMockServer {
   }
 
   private static String saveWordRequsetBody(WordDto wordDto) {
-    return "{" + "\"value\":\"" + wordDto.getValue() + "\"}";
+    return "{" + " \"id\":" + wordDto.getId() + "," + "\"value\":\"" + wordDto.getValue() + "\"}";
   }
 
   public static void startWithoutStubs() {

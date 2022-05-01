@@ -5,14 +5,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class WordDto {
 
+  private final Long id;
   private final String value;
 
   @JsonCreator
-  public WordDto(@JsonProperty("value") String value) {
+  public WordDto(@JsonProperty("id") Long id, @JsonProperty("value") String value) {
+    this.id = id;
     this.value = value;
   }
 
   public String getValue() {
     return value;
+  }
+
+  public Long getId() {
+    return id;
   }
 }

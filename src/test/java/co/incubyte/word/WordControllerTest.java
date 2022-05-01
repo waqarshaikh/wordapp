@@ -31,7 +31,7 @@ class WordControllerTest {
 
   @Test
   void should_return_all_words() {
-    wordClient.saveWord(new WordDto("Word1"));
+    wordClient.saveWord(new WordDto(1L, "Word1"));
 
     WordLoggerMockServer.addGetWordsEndpoint();
     Response<List<WordDto>> wordResponse = wordClient.getAllWords();
@@ -51,7 +51,7 @@ class WordControllerTest {
   void should_save_word() {
     WordLoggerMockServer.addSaveWordEndpoint();
 
-    WordDto wordDto = new WordDto("Hello, World!");
+    WordDto wordDto = new WordDto(1L, "Hello, World!");
     wordClient.saveWord(wordDto);
 
     List<Word> words = wordRepository.getAllWords();
