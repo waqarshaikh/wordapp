@@ -43,6 +43,7 @@ class WordControllerTest {
     if (body != null) {
       assertThat(body).hasSize(1);
       assertThat(body.get(0).getValue()).isEqualTo("Word1");
+      WordLoggerMockServer.verifyGetWordsRequest(1, body.get(0));
     }
   }
 
@@ -50,13 +51,14 @@ class WordControllerTest {
   void should_save_word() {
     WordLoggerMockServer.addSaveWordEndpoint();
 
-    wordClient.saveWord(new WordDto("Hello, World!"));
+    WordDto wordDto = new WordDto("Hello, World!");
+    wordClient.saveWord(wordDto);
 
     List<Word> words = wordRepository.getAllWords();
 
     assertThat(words).isNotNull();
 
     assertThat(words.get(0).getValue()).isEqualTo("Hello, World!");
-
+    WordLoggerMockServer.verifySaveWordRequest(1, wordDto);
   }
 }
