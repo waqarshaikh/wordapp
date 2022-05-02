@@ -1,6 +1,7 @@
 package co.incubyte.word;
 
 import io.micronaut.http.annotation.Body;
+import io.micronaut.http.annotation.Delete;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.http.client.annotation.Client;
@@ -14,4 +15,7 @@ public interface WordClient {
 
   @Post
   void saveWord(@Body WordDto wordDto);
+
+  @Delete("/{id}")
+  void deleteWord(Long id);
 }

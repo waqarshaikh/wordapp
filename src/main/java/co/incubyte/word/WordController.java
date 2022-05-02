@@ -2,6 +2,7 @@ package co.incubyte.word;
 
 import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Delete;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Post;
 import java.util.List;
@@ -23,5 +24,10 @@ public class WordController {
   @Post
   public void save(@Body WordDto wordDto) {
     wordService.save(wordDto);
+  }
+
+  @Delete("/{id}")
+  public void delete(Long id) {
+    wordService.delete(id);
   }
 }

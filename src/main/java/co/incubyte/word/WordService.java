@@ -33,4 +33,9 @@ public class WordService {
     wordRepository.save(word);
     wordLoggerClient.logCreation(wordDto);
   }
+
+  public void delete(Long id) {
+    wordRepository.deleteById(id);
+    wordLoggerClient.logDeletion(id);
+  }
 }

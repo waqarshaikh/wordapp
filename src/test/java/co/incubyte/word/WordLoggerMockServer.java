@@ -57,6 +57,24 @@ public class WordLoggerMockServer {
     return "{" + " \"id\":" + wordDto.getId() + "," + "\"value\":\"" + wordDto.getValue() + "\"}";
   }
 
+  public static void addDeleteWordEndpoint() {
+    wireMockServer.stubFor(WireMock.post(WireMock.urlMatching("/delete"))
+        .willReturn(WireMock.okJson(deleteWordLoggedData())));
+  }
+
+  private static String deleteWordLoggedData() {
+    return "{\n" + "    \"message\":  \"Logged Word Deletion successfully\"\n" + "}";
+  }
+
+  public static void verifyDeleteWordRequest(int count, Long id) {
+    wireMockServer.verify(count, postRequestedFor(urlEqualTo("/delete")).withRequestBody(
+        equalToJson(deleteWordRequsetBody(id), true, false)));
+  }
+
+  private static String deleteWordRequsetBody(Long id) {
+    return "{" + " \"id\":" + id + "\"}";
+  }
+
   public static void startWithoutStubs() {
     wireMockServer = new WireMockServer(options().port(8000).notifier(new ConsoleNotifier(true)));
     wireMockServer.start();
@@ -67,4 +85,5 @@ public class WordLoggerMockServer {
       wireMockServer.stop();
     }
   }
+
 }

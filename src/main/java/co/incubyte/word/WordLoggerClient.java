@@ -1,6 +1,7 @@
 package co.incubyte.word;
 
 import io.micronaut.http.annotation.Body;
+import io.micronaut.http.annotation.Delete;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.http.client.annotation.Client;
 import java.util.List;
@@ -13,4 +14,7 @@ public interface WordLoggerClient {
 
   @Post("/create")
   void logCreation(@Body WordDto wordDto);
+
+  @Delete("/delete")
+  void logDeletion(Long id);
 }

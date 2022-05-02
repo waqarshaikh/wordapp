@@ -26,6 +26,13 @@ const { json } = require("express/lib/response");
    });
  });
 
+ app.post("/delete", (req, res) => {
+  console.log("Word Deleted of ID: ", req.body)
+ res.status(200).json({
+     message: "Logged Word Deletion successfully"
+ });
+});
+
 
 
  app.listen(port, () => {

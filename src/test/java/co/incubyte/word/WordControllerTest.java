@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import java.util.List;
+import java.util.Objects;
 import javax.inject.Inject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -60,5 +61,23 @@ class WordControllerTest {
 
     assertThat(words.get(0).getValue()).isEqualTo("Hello, World!");
     WordLoggerMockServer.verifySaveWordRequest(1, wordDto);
+  }
+
+  @Test
+  void should_delete_word() {
+    WordDto wordDto = new WordDto(1L, "Word1");
+    wordClient.saveWord(wordDto);
+
+    List<Word> words = wordRepository.getAllWords();
+
+    WordLoggerMockServer.addDeleteWordEndpoint();
+
+    wordClient.deleteWord(Objects.requireNonNull(words).get(0).getId());
+
+    List<Word> updatedWords = wordRepository.getAllWords();
+
+    assertThat(updatedWords).isEmpty();
+
+    WordLoggerMockServer.verifyDeleteWordRequest(1, updatedWords.get(0).getId());
   }
 }
