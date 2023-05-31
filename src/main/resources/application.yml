@@ -36,10 +36,14 @@ client:
     url: '${LOGGER_BASE:`http://localhost:8000`}'
 datasources:
   default:
-    url: ${JDBC_URL:`jdbc:mysql://localhost:3306/worddb?characterEncoding=UTF-8`}
-    username: ${JDBC_USER:root}
-    password: ${JDBC_PASSWORD:root@123}
+    url: ${JDBC_URL:`jdbc:mysql://wordapp.mysql.database.azure.com/worddb?useSSL=true&requireSSL=false&serverTimezone=UTC&characterEncoding=UTF-8`}
+    username: ${JDBC_USER:wshaikh}
+    password: ${JDBC_PASSWORD:May15@2020}
     driverClassName: com.mysql.cj.jdbc.Driver
+    dialect: MYSQL
+    readOnly: false
+    minimumIdle: 5
+    maximumPoolSize: 20
 jpa:
   default:
     properties:
