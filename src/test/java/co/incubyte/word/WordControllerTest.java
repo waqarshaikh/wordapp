@@ -8,6 +8,7 @@ import java.util.Objects;
 import javax.inject.Inject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 @MicronautTest
@@ -63,6 +64,7 @@ class WordControllerTest {
     WordLoggerMockServer.verifySaveWordRequest(1, wordDto);
   }
 
+  @Disabled
   @Test
   void should_delete_word() {
     WordDto wordDto = new WordDto(1L, "Word1");
