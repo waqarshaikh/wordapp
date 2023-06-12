@@ -52,4 +52,4 @@ jobs:
           app-name: 'wordapp-server'
           slot-name: 'production'
           publish-profile: ${{ secrets.AzureAppService_PublishProfile_1234 }}
-          package: '*.jar'
+          package: 'wordapp-0.1-all.jar'
